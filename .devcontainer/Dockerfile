@@ -9,8 +9,10 @@ RUN if [ "${NODE_VERSION}" != "none" ]; then su vscode -c "umask 0002 && . /usr/
 
 RUN rm -f /etc/apt/sources.list.d/yarn.list \
     && apt-get update \
-    && apt-get install -y postgresql-client \
+    && apt-get install -y postgresql-client postgresql postgresql-contrib \
     && rm -rf /var/lib/apt/lists/*
+
+RUN echo "vscode ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 # [Optional] If your requirements rarely change, uncomment this section to add them to the image.
 COPY requirements.txt /tmp/pip-tmp/
